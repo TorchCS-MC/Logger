@@ -5,4 +5,3 @@ build
 .idea
 conan_provider.cmake
 .vscode
-readme.md
