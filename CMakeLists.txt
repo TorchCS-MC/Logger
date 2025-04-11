@@ -37,7 +37,7 @@ add_library(torchcs_logger ${LIBRARY_TYPE}
 )
 
 target_include_directories(torchcs_logger PUBLIC include)
-target_link_libraries(torchcs_logger PRIVATE fmt::fmt spdlog::spdlog)
+target_link_libraries(torchcs_logger PUBLIC fmt::fmt spdlog::spdlog)
 
 if(TARGET torchcs_logger)
     if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
