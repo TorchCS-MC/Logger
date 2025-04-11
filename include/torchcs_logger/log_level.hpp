@@ -1,5 +1,4 @@
-#ifndef TORCHCS_LOGGER_LOGLEVEL_HPP
-#define TORCHCS_LOGGER_LOGLEVEL_HPP
+#pragma once
 
 #include <string>
 #include <spdlog/spdlog.h>
@@ -13,5 +12,3 @@ enum LogLevel : unsigned int {
     Critical
 };
 
-
-#endif

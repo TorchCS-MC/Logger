@@ -1,5 +1,4 @@
-#ifndef TORCHCS_LOGGER_LOGGERMANAGER_H
-#define TORCHCS_LOGGER_LOGGERMANAGER_H
+#pragma once
 
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
@@ -29,18 +28,18 @@ private:
 
     fs::path file_logger_directory_path = "logs";
 
-    void Log(LogLevel level, const std::string& key, const std::string& message);
+    void Log(LogLevel level, const std::string& message);
 
     template<typename... Args>
-    void Log(LogLevel level, const std::string& key, fmt::format_string<Args...> fmt_str, Args&&... args) {
-        Log(level, key, fmt::format(fmt_str, std::forward<Args>(args)...));
+    void Log(LogLevel level, fmt::format_string<Args...> fmt_str, Args&&... args) {
+        Log(level,fmt::format(fmt_str, std::forward<Args>(args)...));
     }
 
 public:
-    static std::shared_ptr<LoggerManager> getInstance(const std::string& logArea = "GLOBAL");
-    static bool createInstance(const std::string& logArea);
-    static bool deleteInstance(const std::string& logArea);
-    static bool existsInstance(const std::string& logArea);
+    static std::shared_ptr<LoggerManager> getInstance(const std::string& name);
+    static bool createInstance(const std::string& name);
+    static bool deleteInstance(const std::string& name);
+    static bool existsInstance(const std::string& name);
 
     void load_options(LoggerOptions& options);
 
@@ -50,44 +49,42 @@ public:
     void flush_every(std::chrono::seconds interval);
     void flush_on(LogLevel level);
 
-    void info(const std::string& key, const std::string& message);
-    void verbose(const std::string& key, const std::string& message);
-    void warn(const std::string& key, const std::string& message);
-    void error(const std::string& key, const std::string& message);
-    void critical(const std::string& key, const std::string& message);
-    void debug(const std::string& key, const std::string& message);
+    void info(const std::string& message);
+    void verbose(const std::string& message);
+    void warn(const std::string& message);
+    void error(const std::string& message);
+    void critical(const std::string& message);
+    void debug(const std::string& message);
 
     template<typename... Args>
-    void info(const std::string& key, fmt::format_string<Args...> fmt_str, Args&&... args) {
-        Log(LogLevel::Info, key, fmt_str, std::forward<Args>(args)...);
+    void info(fmt::format_string<Args...> fmt_str, Args&&... args) {
+        Log(LogLevel::Info,fmt_str, std::forward<Args>(args)...);
     }
 
     template<typename... Args>
-    void verbose(const std::string& key, fmt::format_string<Args...> fmt_str, Args&&... args) {
-        Log(LogLevel::Verbose, key, fmt_str, std::forward<Args>(args)...);
+    void verbose(fmt::format_string<Args...> fmt_str, Args&&... args) {
+        Log(LogLevel::Verbose,fmt_str, std::forward<Args>(args)...);
     }
 
     template<typename... Args>
-    void warn(const std::string& key, fmt::format_string<Args...> fmt_str, Args&&... args) {
-        Log(LogLevel::Warn, key, fmt_str, std::forward<Args>(args)...);
+    void warn(fmt::format_string<Args...> fmt_str, Args&&... args) {
+        Log(LogLevel::Warn,fmt_str, std::forward<Args>(args)...);
     }
 
     template<typename... Args>
-    void error(const std::string& key, fmt::format_string<Args...> fmt_str, Args&&... args) {
-        Log(LogLevel::Error, key, fmt_str, std::forward<Args>(args)...);
+    void error(fmt::format_string<Args...> fmt_str, Args&&... args) {
+        Log(LogLevel::Error,fmt_str, std::forward<Args>(args)...);
     }
 
     template<typename... Args>
-    void critical(const std::string& key, fmt::format_string<Args...> fmt_str, Args&&... args) {
-        Log(LogLevel::Critical, key, fmt_str, std::forward<Args>(args)...);
+    void critical(fmt::format_string<Args...> fmt_str, Args&&... args) {
+        Log(LogLevel::Critical,fmt_str, std::forward<Args>(args)...);
     }
 
     template<typename... Args>
-    void debug(const std::string& key, fmt::format_string<Args...> fmt_str, Args&&... args) {
-        Log(LogLevel::Debug, key, fmt_str, std::forward<Args>(args)...);
+    void debug(fmt::format_string<Args...> fmt_str, Args&&... args) {
+        Log(LogLevel::Debug,fmt_str, std::forward<Args>(args)...);
     }
 
-    explicit LoggerManager(const std::string& logArea);
+    explicit LoggerManager(const std::string& name);
 };
-
-#endif // TORCHCS_LOGGER_LOGGERMANAGER_H

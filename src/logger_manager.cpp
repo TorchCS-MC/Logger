@@ -3,16 +3,6 @@
 
 #include <spdlog/pattern_formatter.h>
 
-#ifdef _WIN32
-#include <windows.h>
-void enable_windows_ansi() {
-    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-    DWORD dwMode = 0;
-    if (hOut == INVALID_HANDLE_VALUE || !GetConsoleMode(hOut, &dwMode)) return;
-    SetConsoleMode(hOut, dwMode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
-}
-#endif
-
 std::string strip_minecraft_colors(const std::string& input) {
     std::string result;
     size_t len = input.length();
@@ -26,17 +16,6 @@ std::string strip_minecraft_colors(const std::string& input) {
     return result;
 }
 
-std::string sanitize_filename(const std::string& input) {
-    std::string sanitized = input;
-    const std::string invalid_chars = "<>:\"/\\|?*";
-    for (char& c : sanitized) {
-        if (invalid_chars.find(c) != std::string::npos) {
-            c = '_';
-        }
-    }
-    return sanitized;
-}
-
 std::unordered_map<std::string, std::shared_ptr<LoggerManager>> LoggerManager::instances;
 std::mutex LoggerManager::instance_mutex;
 
@@ -47,33 +26,26 @@ std::shared_ptr<LoggerManager> LoggerManager::getInstance(const std::string& nam
     return nullptr;
 }
 
-bool LoggerManager::createInstance(const std::string& logArea) {
+bool LoggerManager::createInstance(const std::string& name) {
     std::lock_guard<std::mutex> lock(instance_mutex);
-    if (instances.find(logArea) == instances.end()) {
-        instances[logArea] = std::make_shared<LoggerManager>(logArea);
+    if (instances.find(name) == instances.end()) {
+        instances[name] = std::make_shared<LoggerManager>(name);
         return true;
     }
     return false;
 }
 
-bool LoggerManager::deleteInstance(const std::string& logArea) {
+bool LoggerManager::deleteInstance(const std::string& name) {
     std::lock_guard<std::mutex> lock(instance_mutex);
-    return instances.erase(logArea) > 0;
+    return instances.erase(name) > 0;
 }
 
-bool LoggerManager::existsInstance(const std::string& logArea) {
+bool LoggerManager::existsInstance(const std::string& name) {
     std::lock_guard<std::mutex> lock(instance_mutex);
-    return instances.find(logArea) != instances.end();
+    return instances.find(name) != instances.end();
 }
 
 LoggerManager::LoggerManager(const std::string& name) {
-#ifdef _WIN32
-    static bool ansi_enabled = false;
-    if (!ansi_enabled) {
-        enable_windows_ansi();
-        ansi_enabled = true;
-    }
-#endif
     logger = spdlog::stdout_color_mt(name);
     logger->set_level(spdlog::level::trace);
     logger->set_formatter(std::make_unique<CustomFormatter>());
@@ -85,7 +57,7 @@ void LoggerManager::load_options(LoggerOptions& options) {
     }
 }
 
-void LoggerManager::Log(LogLevel level, const std::string& key, const std::string& message) {
+void LoggerManager::Log(LogLevel level, const std::string& message) {
     if (!logger) return;
 
     if (is_console_logging) {
@@ -108,7 +80,7 @@ void LoggerManager::Log(LogLevel level, const std::string& key, const std::strin
         char date_buffer[11];
         std::strftime(date_buffer, sizeof(date_buffer), "%Y-%m-%d", &tm_buf);
 
-        fs::path log_dir = file_logger_directory_path / logger->name() / sanitize_filename(key);
+        fs::path log_dir = file_logger_directory_path / logger->name();
         fs::create_directories(log_dir);
 
         std::string logFilePath = (log_dir / (std::string(date_buffer) + ".txt")).string();
@@ -144,26 +116,26 @@ void LoggerManager::file_logging(bool on) {
     is_file_logging = on;
 }
 
-void LoggerManager::info(const std::string& key, const std::string& message) {
-    Log(LogLevel::Info, key, message);
+void LoggerManager::info(const std::string& message) {
+    Log(LogLevel::Info, message);
 }
 
-void LoggerManager::verbose(const std::string& key, const std::string& message) {
-    Log(LogLevel::Verbose, key, message);
+void LoggerManager::verbose(const std::string& message) {
+    Log(LogLevel::Verbose, message);
 }
 
-void LoggerManager::warn(const std::string& key, const std::string& message) {
-    Log(LogLevel::Warn, key, message);
+void LoggerManager::warn(const std::string& message) {
+    Log(LogLevel::Warn, message);
 }
 
-void LoggerManager::error(const std::string& key, const std::string& message) {
-    Log(LogLevel::Error, key, message);
+void LoggerManager::error(const std::string& message) {
+    Log(LogLevel::Error, message);
 }
 
-void LoggerManager::critical(const std::string& key, const std::string& message) {
-    Log(LogLevel::Critical, key, message);
+void LoggerManager::critical(const std::string& message) {
+    Log(LogLevel::Critical, message);
 }
 
-void LoggerManager::debug(const std::string& key, const std::string& message) {
-    Log(LogLevel::Debug, key, message);
+void LoggerManager::debug(const std::string& message) {
+    Log(LogLevel::Debug, message);
 }

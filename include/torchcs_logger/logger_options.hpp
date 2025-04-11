@@ -1,5 +1,4 @@
-#ifndef TORCHCS_LOGGER_LOGGEROPTIONS_H
-#define TORCHCS_LOGGER_LOGGEROPTIONS_H
+#pragma once
 
 #include <filesystem>
 #include <string>
@@ -16,6 +15,3 @@ public:
 
     fs::path getLogPath();
 };
-
-
-#endif

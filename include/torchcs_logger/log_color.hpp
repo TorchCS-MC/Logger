@@ -1,5 +1,4 @@
-#ifndef TORCHCS_LOGGER_LOGCOLOR_H
-#define TORCHCS_LOGGER_LOGCOLOR_H
+#pragma once
 
 #include <string>
 
@@ -23,5 +22,3 @@ struct LogColor {
     static const std::string BOLD;
     static const std::string RESET;
 };
-
-#endif
