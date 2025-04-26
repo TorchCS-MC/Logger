@@ -13,5 +13,5 @@ private:
 public:
     void setLogPath(fs::path path);
 
-    fs::path getLogPath();
+    fs::path getLogPath() const;
 };

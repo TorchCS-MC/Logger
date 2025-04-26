@@ -1,25 +1,22 @@
-#include <torchcs_logger/custom_formatter.hpp>
 #include <torchcs_logger/logger_manager.hpp>
 #include <torchcs_logger/logger_options.hpp>
+
+#include <thread> 
+#include <chrono>
 
 int main() {
 
     LoggerOptions options;
-
     options.setLogPath("logs");
     
-    LoggerManager logger("Server");
-    logger.file_logging(true);
+    LoggerManager logger;
 
     logger.load_options(options);
+    logger.set_flush_on_level(LogLevel::Value::Info);
 
-    logger.info("Hello World");
-    logger.warn("Hello World");
-    logger.error("Hello World");
-
-    std::string name = "CheerfulVoice27";
-
-    logger.info("Player name: {}", name);
+    logger.log(LogLevel::Value::Info, "DATABASE", "COOOL");
+    logger.log(LogLevel::Value::Info, "DATABASE", "COOOL");
+    logger.log(LogLevel::Value::Info, "DATABASE", "COOOL");   
 
     return 0;
 }

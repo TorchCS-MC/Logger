@@ -12,8 +12,8 @@ option(BUILD_EXAMPLE "Build example project in tests/your_project" OFF)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-include(spdlog)
 include(fmt)
+include(spdlog)
 
 if(TORCHCS_LOGGER_SHARED AND TORCHCS_LOGGER_STATIC)
     message(FATAL_ERROR "Both TORCHCS_LOGGER_SHARED and TORCHCS_LOGGER_STATIC are enabled. Choose only one.")
@@ -32,12 +32,13 @@ endif()
 add_library(torchcs_logger ${LIBRARY_TYPE}
     src/logger_manager.cpp
     src/logger_options.cpp
-    src/custom_formatter.cpp
     src/log_color.cpp
+    src/custom_formatter.cpp
+    src/custom_file_formatter.cpp
 )
 
 target_include_directories(torchcs_logger PUBLIC include)
-target_link_libraries(torchcs_logger PUBLIC fmt::fmt spdlog::spdlog)
+target_link_libraries(torchcs_logger PUBLIC spdlog::spdlog fmt::fmt)
 
 if(TARGET torchcs_logger)
     if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")

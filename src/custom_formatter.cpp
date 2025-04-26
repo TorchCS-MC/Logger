@@ -94,7 +94,7 @@ void CustomFormatter::format(const spdlog::details::log_msg& msg, spdlog::memory
     }
 
     std::string formatted_message = convert_minecraft_colors(fmt::to_string(msg.payload));
-    fmt::format_to(std::back_inserter(dest), "{}[{}] [{}] [{}] {}{}\n", color, time_buffer, log_level, msg.logger_name, formatted_message, "\033[97m");
+    fmt::format_to(std::back_inserter(dest), "{}[{}] [{}] {}{}\n", color, time_buffer, log_level, formatted_message, "\033[97m");
 }
 
 std::unique_ptr<spdlog::formatter> CustomFormatter::clone() const {
