@@ -8,7 +8,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 option(TORCHCS_LOGGER_INSTALL "Enable installation of torchcs_logger" ON)
 option(TORCHCS_LOGGER_SHARED "Build torchcs_logger as a shared library (.so/.dll)" OFF)
 option(TORCHCS_LOGGER_STATIC "Build torchcs_logger as a static library (.a/.lib)" ON)
-option(BUILD_EXAMPLE "Build example project in tests/your_project" OFF)
+option(BUILD_EXAMPLE "Build example project in tests/your_project" ON)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -30,11 +30,13 @@ else()
 endif()
 
 add_library(torchcs_logger ${LIBRARY_TYPE}
-    src/logger_manager.cpp
-    src/logger_options.cpp
     src/log_color.cpp
-    src/custom_formatter.cpp
-    src/custom_file_formatter.cpp
+    src/level_formatter.cpp
+    src/console_sink.cpp
+    src/spdlog_provider.cpp
+    src/color_code_formatter.cpp
+    src/file_sink.cpp
+    src/anti_color_code_formatter.cpp
 )
 
 target_include_directories(torchcs_logger PUBLIC include)

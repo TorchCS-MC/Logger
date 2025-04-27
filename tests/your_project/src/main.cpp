@@ -1,22 +1,27 @@
-#include <torchcs_logger/logger_manager.hpp>
-#include <torchcs_logger/logger_options.hpp>
+#include <torchcs_logger/spdlog_provider.hpp>
+#include <torchcs_logger/console_sink.hpp>
+#include <torchcs_logger/enums/log_level.hpp>
+#include <torchcs_logger/file_sink.hpp>
 
-#include <thread> 
-#include <chrono>
+#include <memory>
 
 int main() {
+    auto my_console_sink = std::make_shared<torchcs::ConsoleSink>();
 
-    LoggerOptions options;
-    options.setLogPath("logs");
-    
-    LoggerManager logger;
+    auto file_sink = std::make_shared<torchcs::FileSink>("logs.txt", 1024 * 1024 * 5);
 
-    logger.load_options(options);
-    logger.set_flush_on_level(LogLevel::Value::Info);
+    auto console_logger = std::make_shared<spdlog::logger>("TorchCS", file_sink);
 
-    logger.log(LogLevel::Value::Info, "DATABASE", "COOOL");
-    logger.log(LogLevel::Value::Info, "DATABASE", "COOOL");
-    logger.log(LogLevel::Value::Info, "DATABASE", "COOOL");   
+    torchcs::SpdLogProvider provider(console_logger);
+    provider.setLevel(torchcs::LogLevel::Trace);
+
+    provider.log(torchcs::LogLevel::Error, "Hello World from TorchCS Logger!");
+
+    provider.log(torchcs::LogLevel::Critical, "Hello World from TorchCS Logger!");
+
+    provider.log(torchcs::LogLevel::Trace, "§aHello World from TorchCS Logger!");
+    provider.log(torchcs::LogLevel::Warn, "Hello World from TorchCS Logger!");
+    provider.log(torchcs::LogLevel::Debug, "Hello World from TorchCS Logger!");
 
     return 0;
 }

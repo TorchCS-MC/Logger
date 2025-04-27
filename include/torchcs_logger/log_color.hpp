@@ -21,4 +21,8 @@ struct LogColor {
     static const std::string WHITE;
     static const std::string BOLD;
     static const std::string RESET;
+
+    static std::string LogColorToAnsi(const std::string &colorCode);
+    static std::string ColorCodeToFormattedText(const std::string &text);
+    static std::string RemoveAllColorCodeFromText(const std::string &text);
 };
