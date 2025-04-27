@@ -1,5 +1,6 @@
 #include <torchcs_logger/anti_color_code_formatter.hpp>
 #include <spdlog/details/fmt_helper.h>
+#include <iostream>
 
 namespace torchcs
 {
