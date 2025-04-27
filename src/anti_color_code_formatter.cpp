@@ -6,6 +6,8 @@ namespace torchcs
 {
     //TODO: anti_color_code fixen
     void AntiColorCodeFormatter::format(const spdlog::details::log_msg &msg, const std::tm & /*tm*/, spdlog::memory_buf_t &dest) {
+        (&dest);
+        
         std::string_view log_message(msg.payload.data(), msg.payload.size());
     }
 
