@@ -82,7 +82,12 @@ namespace torchcs
     {
         std::time_t t = std::time(nullptr);
         std::tm tm;
+
+        #ifdef WIN32
         localtime_s(&tm, &t);
+        #else
+        localtime_r(&tm, &t);
+        #endif
 
         current_date_ = fmt::format("{:04d}_{:02d}_{:02d}", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday);
         current_hour_ = fmt::format("{:02d}", tm.tm_hour);
