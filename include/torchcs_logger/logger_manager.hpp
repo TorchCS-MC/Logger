@@ -26,10 +26,10 @@ public:
     void enable_console_logging(bool on);
     void flush();
 
-    void log(LogLevel::Value level, const std::string& area, const std::string& message);
+    void log(LogLevel::Value level, const std::string& area, const std::string& message) const;
 
     template<typename... Args>
-    void log(LogLevel::Value level, const std::string& area, fmt::format_string<Args...> fmt_str, Args&&... args) {
+    void log(LogLevel::Value level, const std::string& area, fmt::format_string<Args...> fmt_str, Args&&... args) const {
         log(level, area, fmt::format(fmt_str, std::forward<Args>(args)...));
     }
 };

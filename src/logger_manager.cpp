@@ -14,7 +14,6 @@ LoggerManager::~LoggerManager() {
 }
 
 void LoggerManager::load_options(const LoggerOptions& options) {
-
     if (!options.getLogPath().empty()) {
         file_logger_directory_path = options.getLogPath();
 
@@ -40,6 +39,7 @@ void LoggerManager::load_options(const LoggerOptions& options) {
     }
 }
 
+
 void LoggerManager::enable_console_logging(bool on) {
     if (on) {
         logger->set_level(spdlog::level::trace);
@@ -60,6 +60,6 @@ void LoggerManager::flush() {
     logger->flush();
 }
 
-void LoggerManager::log(LogLevel::Value level, const std::string& area, const std::string& message) {
+void LoggerManager::log(LogLevel::Value level, const std::string& area, const std::string& message) const {
     logger->log(static_cast<spdlog::level::level_enum>(level), "[{}] {}", area, message);
 }
