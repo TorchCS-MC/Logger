@@ -44,15 +44,19 @@ namespace torchcs
     {
         spdlog::memory_buf_t formatted;
         formatter_->format(msg, formatted);
-
+    
         const std::string& color_code = level_colors_[msg.level];
         constexpr const char* reset_color = "\033[0m";
-
+    
+        std::string formatted_str = fmt::to_string(formatted);
+        std::string ansi_text = LogColor::ColorCodeToFormattedText(formatted_str);
+    
         fwrite(color_code.data(), sizeof(char), color_code.size(), stdout);
-        fwrite(formatted.data(), sizeof(char), formatted.size(), stdout);
+        fwrite(ansi_text.data(), sizeof(char), ansi_text.size(), stdout);
         fwrite(reset_color, sizeof(char), std::strlen(reset_color), stdout);
         fflush(stdout);
     }
+    
 
     void ConsoleSink::flush_()
     {

@@ -14,6 +14,18 @@ int main() {
     std::vector<std::shared_ptr<spdlog::sinks::sink>> sinks = {my_console_sink, file_sink};
 
     auto console_logger = std::make_shared<spdlog::logger>("TorchCS", sinks.begin(), sinks.end());
+    console_logger->info("Normal: Hello World");
+    console_logger->info("Normal: Hello World");
+    console_logger->info("Normal: Hello World");
+    console_logger->info("Normal: Hello World");
+    console_logger->info("Hello World");
+
+    console_logger->info("Hello World");
+
+    console_logger->info("Hello World");
+
+    console_logger->info("Hello World");
+
 
     console_logger->set_level(spdlog::level::trace);
 
