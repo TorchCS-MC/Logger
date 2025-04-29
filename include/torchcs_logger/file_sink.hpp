@@ -13,7 +13,7 @@
 
 namespace torchcs
 {
-    class FileSink : public spdlog::sinks::base_sink<std::mutex>
+    class FileSink :  public spdlog::sinks::base_sink<std::mutex> 
     {
     public:
         explicit FileSink(std::string filename, size_t max_size);
@@ -26,7 +26,7 @@ namespace torchcs
         void check_and_rotate_file();
         void rotate_daily_file();
         void update_filename();
-        std::string generate_filename() const;
+        std::string generate_filename(const std::string &base) const;
 
         std::string filename_;
         size_t max_size_;

@@ -7,20 +7,28 @@
 #include <vector>
 
 int main() {
-    // Console Sink erstellen
     auto my_console_sink = std::make_shared<torchcs::ConsoleSink>();
 
-    // File Sink erstellen
-    auto file_sink = std::make_shared<torchcs::FileSink>("logs", 1024 * 1024 * 5);
+    auto file_sink = std::make_shared<torchcs::FileSink>("logs/cool", 1024 * 1024 * 5);
 
-    // Ein Vektor von Sinks erstellen
-    //std::vector<std::shared_ptr<spdlog::sinks::sink>> sinks = {my_console_sink, file_sink};
+    std::vector<std::shared_ptr<spdlog::sinks::sink>> sinks = {my_console_sink, file_sink};
 
-    // Logger erstellen und Sinks hinzufügen
-    //auto console_logger = std::make_shared<spdlog::logger>("TorchCS", sinks.begin(), sinks.end());
+    auto console_logger = std::make_shared<spdlog::logger>("TorchCS", sinks.begin(), sinks.end());
 
-    // Logger Level setzen
-    //console_logger->set_level(spdlog::level::trace);
+    console_logger->set_level(spdlog::level::trace);
+
+    torchcs::SpdLogProvider provider(console_logger);
+
+    provider.setLevel(torchcs::LogLevel::Trace);
+
+    provider.log(torchcs::LogLevel::Info, LogColor::PINK + "Hello World");
+    provider.log(torchcs::LogLevel::Info, "§aHello World");
+    provider.log(torchcs::LogLevel::Info, "§aHello World");
+    provider.log(torchcs::LogLevel::Info, "§aHello World");
+    provider.log(torchcs::LogLevel::Info, "Hello World");
+    provider.log(torchcs::LogLevel::Debug, "Hello World");
+    provider.log(torchcs::LogLevel::Warn, "Hello World");
+    provider.log(torchcs::LogLevel::Error, "Hello World");
 
 
 

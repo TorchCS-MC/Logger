@@ -2,25 +2,61 @@
 #include <spdlog/pattern_formatter.h>
 #include <spdlog/details/file_helper.h>
 #include <torchcs_logger/level_formatter.hpp>
+#include <torchcs_logger/anti_color_code_formatter.hpp>
 #include <ctime>
 #include <fmt/format.h>
 #include <iostream>
 
+#include <filesystem>
+
+namespace fs = std::filesystem;
+using spdlog::details::os::path_exists;
+
 namespace torchcs
 {
 
-    FileSink::FileSink(spdlog::filename_t filename, size_t max_size)
-        : filename_(std::move(filename)), max_size_(max_size)
+    FileSink::FileSink(spdlog::filename_t base_filename, size_t max_size)
+        : max_size_(max_size)
     {
+        filename_ = generate_filename(base_filename);
+
+        auto parent_path = fs::path(filename_).parent_path();
+        
+        if (!parent_path.empty() && !fs::exists(parent_path))
+        {
+            fs::create_directories(parent_path);
+        }
+
+        try
+        {
+            file_helper_.open(filename_);
+        }
+        catch (const spdlog::spdlog_ex &ex)
+        {
+            std::cerr << "Logger file open error: " << ex.what() << std::endl;
+            throw;
+        }
 
         auto formatter = std::make_unique<spdlog::pattern_formatter>();
         formatter->add_flag<torchcs::LevelFormatter>('L');
-        formatter->set_pattern("%^[%Y-%m-%d %H:%M:%S] [%L] [%n] %v%$");
+        formatter->add_flag<torchcs::AntiColorCodeFormatter>('C');
+        formatter->set_pattern("%^[%Y-%m-%d %H:%M:%S] [%L] [%n] %C");
 
-        //TODO:Abort has been called fixen
         this->set_formatter(std::move(formatter));
-        file_helper_.open(filename);
+    }
 
+    std::string FileSink::generate_filename(const std::string &base) const
+    {
+        std::time_t t = std::time(nullptr);
+        std::tm tm;
+
+#ifdef WIN32
+        localtime_s(&tm, &t);
+#else
+        localtime_r(&t, &tm);
+#endif
+
+        return fmt::format("{}_{:02d}_{:02d}_{:04d}_{:02d}.txt", base, tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour);
     }
 
     void FileSink::sink_it_(const spdlog::details::log_msg &msg)
@@ -29,7 +65,7 @@ namespace torchcs
         this->formatter_->format(msg, formatted);
 
         check_and_rotate_file();
-        file_helper_.write(static_cast<const spdlog::memory_buf_t &>(formatted));
+        file_helper_.write(formatted);
     }
 
     void FileSink::flush_()
@@ -51,7 +87,7 @@ namespace torchcs
             archive_filename << filename_ << "." << std::time(nullptr);
             std::rename(filename_.c_str(), archive_filename.str().c_str());
 
-            file_helper_.open(filename_, std::ios::app);
+            file_helper_.open(filename_);
         }
 
         rotate_daily_file();
@@ -79,7 +115,7 @@ namespace torchcs
             archive_filename << filename_ << "." << new_date << "-" << new_hour;
             std::rename(filename_.c_str(), archive_filename.str().c_str());
 
-            file_helper_.open(filename_, std::ios::app);
+            file_helper_.open(filename_);
             current_date_ = new_date;
             current_hour_ = new_hour;
         }
@@ -105,6 +141,6 @@ namespace torchcs
         archive_filename << filename_ << "." << current_date_ << "-" << current_hour_;
         std::rename(filename_.c_str(), archive_filename.str().c_str());
 
-        file_helper_.open(filename_, std::ios::app);
+        file_helper_.open(filename_);
     }
 }

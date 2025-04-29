@@ -30,7 +30,7 @@ namespace torchcs
         formatter->add_flag<torchcs::LevelFormatter>('L');
         formatter->add_flag<torchcs::ColorCodeFormatter>('C');
 
-        formatter->set_pattern("%^[%Y-%m-%d %H:%M:%S] [%L] [%n] %v%$");
+        formatter->set_pattern("%^[%Y-%m-%d %H:%M:%S] [%L] [%n] %C");
 
         formatter_ = std::move(formatter);
     }
