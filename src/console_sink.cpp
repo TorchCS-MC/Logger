@@ -19,7 +19,7 @@ namespace torchcs
 
         level_colors_[spdlog::level::trace] = LogColor::LogColorToAnsi(LogColor::DARK_BLUE);
         level_colors_[spdlog::level::debug] = LogColor::LogColorToAnsi(LogColor::BLUE);
-        level_colors_[spdlog::level::info] = LogColor::LogColorToAnsi(LogColor::RESET);
+        level_colors_[spdlog::level::info] = LogColor::LogColorToAnsi(LogColor::WHITE);
         level_colors_[spdlog::level::warn] = LogColor::LogColorToAnsi(LogColor::ORANGE);
         level_colors_[spdlog::level::err] = LogColor::LogColorToAnsi(LogColor::RED);
         level_colors_[spdlog::level::critical] = LogColor::LogColorToAnsi(LogColor::DARK_RED);
