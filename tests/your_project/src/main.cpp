@@ -42,7 +42,5 @@ int main() {
     provider.log(torchcs::LogLevel::Warn, "Hello World");
     provider.log(torchcs::LogLevel::Error, "Hello World");
 
-
-
     return 0;
 }
