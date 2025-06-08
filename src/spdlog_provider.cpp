@@ -1,4 +1,4 @@
-#include <torchcs_logger/spdlog_provider.hpp>
+#include <torchcs/spdlog/spdlog_provider.hpp>
 
 namespace torchcs
 {

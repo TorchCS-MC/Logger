@@ -1,4 +1,4 @@
-name: "ci"
+name: "create_lib"
 
 on:
   push:

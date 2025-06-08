@@ -1,12 +1,13 @@
-#include <torchcs_logger/file_sink.hpp>
+#include <torchcs/spdlog/file_sink.hpp>
+#include <torchcs/spdlog/level_formatter.hpp>
+#include <torchcs/spdlog/anti_color_code_formatter.hpp>
+
 #include <spdlog/pattern_formatter.h>
 #include <spdlog/details/file_helper.h>
-#include <torchcs_logger/level_formatter.hpp>
-#include <torchcs_logger/anti_color_code_formatter.hpp>
-#include <ctime>
 #include <fmt/format.h>
-#include <iostream>
 
+#include <ctime>
+#include <iostream>
 #include <filesystem>
 
 namespace fs = std::filesystem;
@@ -56,7 +57,7 @@ namespace torchcs
         localtime_r(&t, &tm);
 #endif
 
-        return fmt::format("{}_{:02d}_{:02d}_{:04d}_{:02d}.txt", base, tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour);
+        return fmt::format("{}_{:02d}.{:02d}.{:04d}_{:02d}.txt", base, tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour);
     }
 
     void FileSink::sink_it_(const spdlog::details::log_msg &msg)
@@ -104,7 +105,7 @@ namespace torchcs
         localtime_r(&t, &tm);
 #endif
 
-        std::string new_date = fmt::format("{:04d}-{:02d}-{:02d}", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday);
+        std::string new_date = fmt::format("{:04d}.{:02d}.{:02d}", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday);
         std::string new_hour = fmt::format("{:02d}", tm.tm_hour);
 
         if (new_date != current_date_ || new_hour != current_hour_)
@@ -132,7 +133,7 @@ namespace torchcs
         localtime_r(&t, &tm);
 #endif
 
-        current_date_ = fmt::format("{:04d}-{:02d}-{:02d}", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday);
+        current_date_ = fmt::format("{:04d}.{:02d}.{:02d}", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday);
         current_hour_ = fmt::format("{:02d}", tm.tm_hour);
 
         file_helper_.close();

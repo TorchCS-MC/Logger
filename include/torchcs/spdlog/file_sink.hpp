@@ -3,13 +3,14 @@
 #include <spdlog/details/file_helper.h>
 #include <spdlog/sinks/base_sink.h>
 #include <spdlog/spdlog.h>
+#include <fmt/format.h>
+
 #include <memory>
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <mutex>
 #include <ctime>
-#include <fmt/format.h>
 
 namespace torchcs
 {

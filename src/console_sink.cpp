@@ -1,12 +1,12 @@
-#include <torchcs_logger/console_sink.hpp>
+#include <torchcs/spdlog/console_sink.hpp>
+#include <torchcs/spdlog/level_formatter.hpp>
+#include <torchcs/spdlog/color_code_formatter.hpp>
+
 #include <spdlog/sinks/stdout_color_sinks.h> 
 #include <spdlog/sinks/base_sink-inl.h>
-
-#include <torchcs_logger/level_formatter.hpp> 
-#include <torchcs_logger/color_code_formatter.hpp>
 #include <spdlog/details/fmt_helper.h> 
-#include <cstdio>
 
+#include <cstdio>
 #include <iostream>
 
 namespace torchcs

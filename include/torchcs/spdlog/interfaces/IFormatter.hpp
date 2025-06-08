@@ -1,9 +1,10 @@
 #pragma once
 
-#include <memory>
 #include <spdlog/details/log_msg.h>
 #include <spdlog/common.h>
 #include <spdlog/pattern_formatter.h>
+
+#include <memory>
 
 namespace torchcs
 {

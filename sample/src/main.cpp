@@ -1,8 +1,10 @@
-#include <torchcs_logger/spdlog_provider.hpp>
-#include <torchcs_logger/console_sink.hpp>
-#include <torchcs_logger/enums/log_level.hpp>
-#include <torchcs_logger/file_sink.hpp>
+#include <torchcs/spdlog/spdlog_provider.hpp>
+#include <torchcs/spdlog/console_sink.hpp>
+#include <torchcs/spdlog/enums/log_level.hpp>
+#include <torchcs/spdlog/file_sink.hpp>
+
 #include <spdlog/spdlog.h>
+
 #include <memory>
 #include <vector>
 

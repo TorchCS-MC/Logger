@@ -1,5 +1,7 @@
-#include <torchcs_logger/level_formatter.hpp>
+#include <torchcs/spdlog/level_formatter.hpp>
+
 #include <spdlog/details/fmt_helper.h>
+
 #include <cctype>
 
 namespace torchcs

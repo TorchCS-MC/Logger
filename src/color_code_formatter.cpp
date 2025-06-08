@@ -1,5 +1,6 @@
-#include <torchcs_logger/color_code_formatter.hpp>
-#include <torchcs_logger/log_color.hpp>
+#include <torchcs/spdlog/color_code_formatter.hpp>
+#include <torchcs/spdlog/log_color.hpp>
+
 #include <spdlog/details/fmt_helper.h>
 
 namespace torchcs

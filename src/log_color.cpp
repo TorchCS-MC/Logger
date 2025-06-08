@@ -1,4 +1,5 @@
-#include <torchcs_logger/log_color.hpp>
+#include <torchcs/spdlog/log_color.hpp>
+
 #include <unordered_map>
 
 const std::string LogColor::BLACK = "§0";

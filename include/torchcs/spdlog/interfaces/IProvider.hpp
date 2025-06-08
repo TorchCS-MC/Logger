@@ -1,7 +1,9 @@
 #pragma once
 
 #include "../enums/log_level.hpp"
+
 #include <fmt/format.h>
+
 #include <string_view>
 
 namespace torchcs {
