@@ -9,7 +9,7 @@ namespace torchcs::logger
         return logger_->name();
     }
 
-    void SpdLogProvider::log(torchcs::logger::LogLevel level, std::string_view message) const
+    void SpdLogProvider::log(torchcs::logger::level::Type level, std::string_view message) const
     {
         if (!logger_) {
             return;
@@ -18,7 +18,7 @@ namespace torchcs::logger
     }
 
 
-    void SpdLogProvider::setLevel(torchcs::logger::LogLevel level)
+    void SpdLogProvider::setLevel(torchcs::logger::level::Type level)
     {
         if (!logger_)
             return;

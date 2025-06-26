@@ -2,10 +2,9 @@
 
 #include <string_view>
 
-namespace torchcs::logger
+namespace torchcs::logger::level
 {
-
-    enum class LogLevel : unsigned int
+    enum class Type : unsigned int
     {
         Trace,
         Debug,
@@ -15,30 +14,4 @@ namespace torchcs::logger
         Critical,
         Off
     };
-
-
-
-    constexpr std::string_view log_level_to_string(LogLevel level)
-    {
-        switch (level)
-        {
-        case LogLevel::Trace:
-            return "TRACE";
-        case LogLevel::Debug:
-            return "DEBUG";
-        case LogLevel::Info:
-            return "INFO";
-        case LogLevel::Warn:
-            return "WARN";
-        case LogLevel::Error:
-            return "ERROR";
-        case LogLevel::Critical:
-            return "CRITICAL";
-        case LogLevel::Off:
-            return "OFF";
-        default:
-            return "UNKNOWN";
-        }
-    }
-
 }

@@ -1,13 +1,11 @@
 #pragma once
 
 #include "log_level.hpp"
-#include "interfaces/IProvider.hpp"
 #include <spdlog/logger.h>
 
 namespace torchcs::logger
 {
-
-    class SpdLogProvider : public logger::interfaces::IProvider
+    class SpdLogProvider
     {
     private:
         std::shared_ptr<spdlog::logger> logger_;
@@ -15,11 +13,11 @@ namespace torchcs::logger
     public:
         explicit SpdLogProvider(std::shared_ptr<spdlog::logger> logger);
 
-        [[nodiscard]] std::string_view getName() const override;
+        [[nodiscard]] std::string_view getName() const;
 
-        void log(logger::LogLevel level, std::string_view message) const override;
+        void log(logger::level::Type level, std::string_view message) const;
 
-        void setLevel(logger::LogLevel level) override;
+        void setLevel(logger::level::Type level);
 
     };
 

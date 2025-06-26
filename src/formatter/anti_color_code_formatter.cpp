@@ -10,7 +10,7 @@ namespace torchcs::logger::formatter
         
         std::string_view log_message(msg.payload.data(), msg.payload.size());
 
-        std::string clean_message = LogColor::RemoveAllColorCodeFromText(std::string(log_message));
+        std::string clean_message = color::Type::RemoveAllColorCodeFromText(std::string(log_message));
 
         fmt::format_to(std::back_inserter(dest), "{}", clean_message);
     }

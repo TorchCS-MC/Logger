@@ -22,7 +22,7 @@ namespace torchcs::logger::sinks
         void flush_() override;
 
     private:
-        LogColor color;
+        color::Type color;
         std::shared_ptr<spdlog::sinks::sink> internal_sink_;
         std::array<std::string, spdlog::level::n_levels> level_colors_;
 

@@ -13,7 +13,6 @@
 namespace fs = std::filesystem;
 using spdlog::details::os::path_exists;
 
-
 namespace torchcs::logger::sinks
 {
 

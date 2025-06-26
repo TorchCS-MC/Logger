@@ -17,13 +17,13 @@ namespace torchcs::logger::sinks
         setColorMode(mode);
         internal_sink_ = std::make_shared<spdlog::sinks::stdout_color_sink_mt>(mode);
 
-        level_colors_[spdlog::level::trace] = LogColor::LogColorToAnsi(LogColor::DARK_BLUE);
-        level_colors_[spdlog::level::debug] = LogColor::LogColorToAnsi(LogColor::BLUE);
-        level_colors_[spdlog::level::info] = LogColor::LogColorToAnsi(LogColor::WHITE);
-        level_colors_[spdlog::level::warn] = LogColor::LogColorToAnsi(LogColor::ORANGE);
-        level_colors_[spdlog::level::err] = LogColor::LogColorToAnsi(LogColor::RED);
-        level_colors_[spdlog::level::critical] = LogColor::LogColorToAnsi(LogColor::DARK_RED);
-        level_colors_[spdlog::level::off] = LogColor::LogColorToAnsi(LogColor::WHITE);
+        level_colors_[spdlog::level::trace] = color::Type::LogColorToAnsi(color::Type::DARK_BLUE);
+        level_colors_[spdlog::level::debug] = color::Type::LogColorToAnsi(color::Type::BLUE);
+        level_colors_[spdlog::level::info] = color::Type::LogColorToAnsi(color::Type::WHITE);
+        level_colors_[spdlog::level::warn] = color::Type::LogColorToAnsi(color::Type::ORANGE);
+        level_colors_[spdlog::level::err] = color::Type::LogColorToAnsi(color::Type::RED);
+        level_colors_[spdlog::level::critical] = color::Type::LogColorToAnsi(color::Type::DARK_RED);
+        level_colors_[spdlog::level::off] = color::Type::LogColorToAnsi(color::Type::WHITE);
 
         auto formatter = std::make_unique<spdlog::pattern_formatter>();
 
@@ -49,7 +49,7 @@ namespace torchcs::logger::sinks
         constexpr const char* reset_color = "\033[0m";
     
         std::string formatted_str = fmt::to_string(formatted);
-        std::string ansi_text = LogColor::ColorCodeToFormattedText(formatted_str);
+        std::string ansi_text = color::Type::ColorCodeToFormattedText(formatted_str);
     
         fwrite(color_code.data(), sizeof(char), color_code.size(), stdout);
         fwrite(ansi_text.data(), sizeof(char), ansi_text.size(), stdout);

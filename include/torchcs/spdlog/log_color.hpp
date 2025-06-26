@@ -2,9 +2,9 @@
 
 #include <string>
 
-namespace torchcs::logger
+namespace torchcs::logger::color
 {
-    struct LogColor
+    struct Type
     {
         static const std::string BLACK;
         static const std::string DARK_BLUE;
