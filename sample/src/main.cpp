@@ -1,6 +1,6 @@
 #include <torchcs/spdlog/spdlog_provider.hpp>
 #include <torchcs/spdlog/console_sink.hpp>
-#include <torchcs/spdlog/enums/log_level.hpp>
+#include <torchcs/spdlog/log_level.hpp>
 #include <torchcs/spdlog/file_sink.hpp>
 
 #include <spdlog/spdlog.h>
@@ -33,16 +33,16 @@ int main() {
 
     torchcs::SpdLogProvider provider(console_logger);
 
-    provider.setLevel(torchcs::LogLevel::Trace);
+    provider.setLevel(torchcs::logger::LogLevel::Trace);
 
-    provider.log(torchcs::LogLevel::Info, LogColor::PINK + "Hello World");
-    provider.log(torchcs::LogLevel::Info, "§aHello World");
-    provider.log(torchcs::LogLevel::Info, "§aHello World");
-    provider.log(torchcs::LogLevel::Info, "§aHello World");
-    provider.log(torchcs::LogLevel::Info, "Hello World");
-    provider.log(torchcs::LogLevel::Debug, "Hello World");
-    provider.log(torchcs::LogLevel::Warn, "Hello World");
-    provider.log(torchcs::LogLevel::Error, "Hello World");
+    provider.log(torchcs::logger::LogLevel::Info, LogColor::PINK + "Hello World");
+    provider.log(torchcs::logger::LogLevel::Info, "§aHello World");
+    provider.log(torchcs::logger::LogLevel::Info, "§aHello World");
+    provider.log(torchcs::logger::LogLevel::Info, "§aHello World");
+    provider.log(torchcs::logger::LogLevel::Info, "Hello World");
+    provider.log(torchcs::logger::LogLevel::Debug, "Hello World");
+    provider.log(torchcs::logger::LogLevel::Warn, "Hello World");
+    provider.log(torchcs::logger::LogLevel::Error, "Hello World");
 
     return 0;
 }

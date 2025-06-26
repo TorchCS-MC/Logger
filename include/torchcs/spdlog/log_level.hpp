@@ -2,7 +2,7 @@
 
 #include <string_view>
 
-namespace torchcs
+namespace torchcs::logger
 {
 
     enum class LogLevel : unsigned int
@@ -16,7 +16,9 @@ namespace torchcs
         Off
     };
 
-    constexpr std::string_view to_string(LogLevel level)
+
+
+    constexpr std::string_view log_level_to_string(LogLevel level)
     {
         switch (level)
         {

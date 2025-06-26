@@ -1,11 +1,10 @@
-#include <torchcs/spdlog/anti_color_code_formatter.hpp>
+#include "anti_color_code_formatter.hpp"
+
 #include <torchcs/spdlog/log_color.hpp>
-
 #include <spdlog/details/fmt_helper.h>
-
 #include <iostream>
 
-namespace torchcs
+namespace torchcs::logger::formatter
 {
     void AntiColorCodeFormatter::format(const spdlog::details::log_msg &msg, const std::tm & /*tm*/, spdlog::memory_buf_t &dest) {
         

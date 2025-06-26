@@ -1,12 +1,11 @@
 #pragma once
 
-#include "../enums/log_level.hpp"
+#include "torchcs/spdlog/log_level.hpp"
 
 #include <fmt/format.h>
-
 #include <string_view>
 
-namespace torchcs {
+namespace torchcs::logger::interfaces {
 
     class IProvider {
     public:
@@ -14,8 +13,8 @@ namespace torchcs {
 
         [[nodiscard]] virtual std::string_view getName() const = 0;
         
-        virtual void log(LogLevel level, std::string_view message) const = 0;
-        virtual void setLevel(LogLevel level) = 0;
+        virtual void log(logger::LogLevel level, std::string_view message) const = 0;
+        virtual void setLevel(logger::LogLevel level) = 0;
 
     };
 

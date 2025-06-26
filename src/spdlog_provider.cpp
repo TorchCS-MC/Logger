@@ -1,6 +1,6 @@
-#include <torchcs/spdlog/spdlog_provider.hpp>
+#include "torchcs/spdlog/spdlog_provider.hpp"
 
-namespace torchcs
+namespace torchcs::logger
 {
     SpdLogProvider::SpdLogProvider(std::shared_ptr<spdlog::logger> logger) : logger_(std::move(logger)) {}
 
@@ -9,7 +9,7 @@ namespace torchcs
         return logger_->name();
     }
 
-    void SpdLogProvider::log(torchcs::LogLevel level, std::string_view message) const
+    void SpdLogProvider::log(torchcs::logger::LogLevel level, std::string_view message) const
     {
         if (!logger_) {
             return;
@@ -18,7 +18,7 @@ namespace torchcs
     }
 
 
-    void SpdLogProvider::setLevel(LogLevel level)
+    void SpdLogProvider::setLevel(torchcs::logger::LogLevel level)
     {
         if (!logger_)
             return;

@@ -1,10 +1,10 @@
-#include <torchcs/spdlog/level_formatter.hpp>
+#include "level_formatter.hpp"
 
 #include <spdlog/details/fmt_helper.h>
 
 #include <cctype>
 
-namespace torchcs
+namespace torchcs::logger::formatter
 {
     void LevelFormatter::format(const spdlog::details::log_msg &msg, const std::tm &, spdlog::memory_buf_t &dest)
     {

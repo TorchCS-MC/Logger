@@ -12,7 +12,7 @@
 #include <mutex>
 #include <ctime>
 
-namespace torchcs
+namespace torchcs::logger::sinks
 {
     class FileSink :  public spdlog::sinks::base_sink<std::mutex> 
     {

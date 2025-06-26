@@ -1,9 +1,9 @@
-#include <torchcs/spdlog/color_code_formatter.hpp>
+#include "color_code_formatter.hpp"
 #include <torchcs/spdlog/log_color.hpp>
 
 #include <spdlog/details/fmt_helper.h>
 
-namespace torchcs
+namespace torchcs::logger::formatter
 {
     void ColorCodeFormatter::format(const spdlog::details::log_msg &msg, const std::tm &, spdlog::memory_buf_t &dest)
     {

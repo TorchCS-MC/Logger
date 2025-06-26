@@ -1,6 +1,6 @@
-#include <torchcs/spdlog/console_sink.hpp>
-#include <torchcs/spdlog/level_formatter.hpp>
-#include <torchcs/spdlog/color_code_formatter.hpp>
+#include <torchcs/spdlog/sinks/console_sink.hpp>
+#include "formatter/level_formatter.hpp"
+#include "formatter/color_code_formatter.hpp"
 
 #include <spdlog/sinks/stdout_color_sinks.h> 
 #include <spdlog/sinks/base_sink-inl.h>
@@ -9,7 +9,7 @@
 #include <cstdio>
 #include <iostream>
 
-namespace torchcs
+namespace torchcs::logger::sinks
 {
 
     ConsoleSink::ConsoleSink(spdlog::color_mode mode)
@@ -27,8 +27,8 @@ namespace torchcs
 
         auto formatter = std::make_unique<spdlog::pattern_formatter>();
 
-        formatter->add_flag<torchcs::LevelFormatter>('L');
-        formatter->add_flag<torchcs::ColorCodeFormatter>('C');
+        formatter->add_flag<torchcs::logger::formatter::LevelFormatter>('L');
+        formatter->add_flag<torchcs::logger::formatter::ColorCodeFormatter>('C');
 
         formatter->set_pattern("%^[%Y-%m-%d %H:%M:%S] [%L] [%n] %C");
 

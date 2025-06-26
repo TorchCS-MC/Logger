@@ -2,10 +2,10 @@
 
 #include "interfaces/IFormatter.hpp"
 
-namespace torchcs
+namespace torchcs::logger::formatter
 {
 
-    class ColorCodeFormatter : public IFormatter
+    class ColorCodeFormatter : public logger::interfaces::IFormatter
     {
     public:
         void format(const spdlog::details::log_msg &msg, const std::tm &, spdlog::memory_buf_t &dest) override;

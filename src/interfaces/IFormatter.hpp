@@ -6,7 +6,7 @@
 
 #include <memory>
 
-namespace torchcs
+namespace torchcs::logger::interfaces
 {
 
     class IFormatter : public spdlog::custom_flag_formatter

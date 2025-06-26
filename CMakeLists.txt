@@ -29,14 +29,18 @@ else()
 endif()
 
 add_library(torchcs_logger ${LIBRARY_TYPE}
+    src/formatter/level_formatter.cpp
+    src/formatter/color_code_formatter.cpp
+    src/formatter/anti_color_code_formatter.cpp
+
+    src/sinks/console_sink.cpp
+    src/sinks/file_sink.cpp
+
     src/log_color.cpp
-    src/level_formatter.cpp
-    src/console_sink.cpp
     src/spdlog_provider.cpp
-    src/color_code_formatter.cpp
-    src/file_sink.cpp
-    src/anti_color_code_formatter.cpp
 )
+
+target_include_directories(torchcs_logger PRIVATE src)
 
 target_link_libraries(torchcs_logger PUBLIC 
     spdlog::spdlog 

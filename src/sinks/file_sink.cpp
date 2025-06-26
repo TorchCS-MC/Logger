@@ -1,6 +1,6 @@
-#include <torchcs/spdlog/file_sink.hpp>
-#include <torchcs/spdlog/level_formatter.hpp>
-#include <torchcs/spdlog/anti_color_code_formatter.hpp>
+#include <torchcs/spdlog/sinks/file_sink.hpp>
+#include "formatter/level_formatter.hpp"
+#include "formatter/anti_color_code_formatter.hpp"
 
 #include <spdlog/pattern_formatter.h>
 #include <spdlog/details/file_helper.h>
@@ -13,11 +13,11 @@
 namespace fs = std::filesystem;
 using spdlog::details::os::path_exists;
 
-namespace torchcs
+
+namespace torchcs::logger::sinks
 {
 
-    FileSink::FileSink(spdlog::filename_t base_filename, size_t max_size)
-        : max_size_(max_size)
+    FileSink::FileSink(spdlog::filename_t base_filename, size_t max_size) : max_size_(max_size)
     {
         filename_ = generate_filename(base_filename);
 
@@ -39,8 +39,8 @@ namespace torchcs
         }
 
         auto formatter = std::make_unique<spdlog::pattern_formatter>();
-        formatter->add_flag<torchcs::LevelFormatter>('L');
-        formatter->add_flag<torchcs::AntiColorCodeFormatter>('C');
+        formatter->add_flag<torchcs::logger::formatter::LevelFormatter>('L');
+        formatter->add_flag<torchcs::logger::formatter::AntiColorCodeFormatter>('C');
         formatter->set_pattern("%^[%Y-%m-%d %H:%M:%S] [%L] [%n] %C");
 
         this->set_formatter(std::move(formatter));

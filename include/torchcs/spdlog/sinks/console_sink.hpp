@@ -1,6 +1,6 @@
 #pragma once
 
-#include "log_color.hpp"
+#include "../log_color.hpp"
 
 #include <spdlog/details/console_globals.h>
 #include <spdlog/details/os.h>
@@ -9,7 +9,7 @@
 #include <memory>
 #include <array>
 
-namespace torchcs
+namespace torchcs::logger::sinks
 {
     class ConsoleSink : public spdlog::sinks::base_sink<std::mutex>
     {
