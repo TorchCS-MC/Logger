@@ -27,7 +27,7 @@ target_link_libraries(your_project PRIVATE torchcs::logger)
 
 ## Example Code
 
-```code
+```c++
 #include <torchcs/spdlog/spdlog_provider.hpp>
 #include <torchcs/spdlog/sinks/console_sink.hpp>
 #include <torchcs/spdlog/log_level.hpp>
